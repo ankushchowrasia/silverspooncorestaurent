@@ -298,6 +298,12 @@
             0% { opacity: 1; transform: translateY(0) scale(1); }
             100% { opacity: 0; transform: translateY(-40px) scale(1.1); }
         }
+
+        /* Mobile Centered Animation */
+        @keyframes floatUpFadeCenter {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) translateY(-40px) scale(1.1); }
+        }
         
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -323,6 +329,10 @@
             align-items: center;
             gap: 0.5rem;
             animation: floatUpFade 0.8s ease-out forwards;
+        }
+
+        .added-feedback.mobile-center {
+            animation: floatUpFadeCenter 0.8s ease-out forwards;
         }
 
         .cart-shake {
@@ -924,16 +934,27 @@
         };
 
         function triggerAnimation(e) {
-            if(!e) return;
-            
             // 1. Floating Badge
             const el = document.createElement('div');
             el.className = 'added-feedback';
             el.innerHTML = `${icons.check} Added!`; 
             
-            // Position near click
-            el.style.left = `${e.clientX}px`;
-            el.style.top = `${e.clientY - 20}px`;
+            // Check if mobile width (less than 768px)
+            if (window.innerWidth < 768) {
+                // Mobile: Center Screen
+                el.classList.add('mobile-center');
+                el.style.left = '50%';
+                el.style.top = '50%';
+            } else if (e && e.clientX) {
+                // Desktop: Near Cursor
+                el.style.left = `${e.clientX}px`;
+                el.style.top = `${e.clientY - 20}px`;
+            } else {
+                // Fallback (e.g. from modal)
+                el.classList.add('mobile-center');
+                el.style.left = '50%';
+                el.style.top = '50%';
+            }
             
             document.body.appendChild(el);
             setTimeout(() => el.remove(), 800);
