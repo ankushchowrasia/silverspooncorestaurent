@@ -4,7 +4,7 @@
 
 ### *Where Culinary Excellence Meets Digital Innovation*
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-ea580c?style=for-the-badge)](https://silverspoon.co)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-ea580c?style=for-the-badge)](https://silverspoonco.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-16a34a?style=for-the-badge)](LICENSE)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
