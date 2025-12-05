@@ -80,12 +80,12 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 | Feature | Description |
 |---------|-------------|
-| 📋 **Dynamic Menu** | Interactive menu with real-time filtering by category, diet preference (Veg/Non-Veg), price range, and sorting options |
-| 🔍 **Smart Search** | Instant search across dish names and descriptions with debounced input handling |
-| 👨‍🍳 **Chef's Specials** | Highlighted signature dishes with special badges and prominent placement |
-| 📖 **Dish Details Modal** | Rich modal popups showcasing ingredients, nutritional info, food trivia, and high-quality images |
-| ⭐ **Rating System** | Visual star ratings for each dish to help customers make informed choices |
-| 🏷️ **Discount Badges** | Eye-catching discount indicators with automatic price calculations |
+| 📋 **Dynamic Menu** | Real-time filtering by category, veg/non-veg, price, and sorting |
+| 🔍 **Smart Search** | Instant search across dish names and descriptions |
+| 👨‍🍳 **Chef's Specials** | Signature dishes highlighted with badges |
+| 📖 **Dish Details Modal** | Ingredients, trivia, ratings, and high-quality images |
+| ⭐ **Ratings** | Dish ratings displayed with star badges |
+| 🏷️ **Discounts** | Auto-calculated discounts & visual badges |
 
 <br>
 
@@ -97,11 +97,11 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 | Feature | Description |
 |---------|-------------|
-| 🛍️ **Smart Cart** | Persistent shopping cart with localStorage, quantity controls, and automatic syncing |
-| 💰 **Tiered Discounts** | Automatic cart discounts: **10% off** on orders ≥₹1000, **15% off** on orders ≥₹2000 |
-| 🎟️ **Coupon System** | Support for multiple coupon codes (`SILVER10` for 10% off, `FREEDRINK` for ₹100 off) |
-| 📦 **Checkout Flow** | Complete checkout process with delivery address, contact details, and order notes |
-| 📜 **Order History** | Persistent order tracking with complete order details and timestamps |
+| 🛍️ **Smart Cart** | Persistent cart, quantity controls, auto-sync |
+| 💰 **Tiered Discounts** | 10% off ≥ ₹1000, 15% off ≥ ₹2000 |
+| 🎟️ **Coupons** | `SILVER10`, `FREEDRINK` support |
+| 📦 **Checkout Flow** | Delivery address, phone, notes, total summary |
+| 📜 **Order History** | Saved locally with timestamps |
 
 <br>
 
@@ -113,10 +113,9 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 | Feature | Description |
 |---------|-------------|
-| 🪑 **Table Booking** | Intuitive reservation form with date picker, time slot selection (10 AM - 11 PM), and guest count |
-| ✅ **Booking Confirmation** | Instant visual confirmation with animated success popup |
-| 📋 **Reservation History** | Track all past and upcoming reservations in one place |
-| 📞 **Contact Integration** | Direct integration with restaurant contact for reservation queries |
+| 🪑 **Table Booking** | Date, time & guest count selection |
+| ✅ **Booking Confirmation** | Success popup with animation |
+| 📋 **Reservation History** | Auto-stored for future viewing |
 
 <br>
 
@@ -128,12 +127,11 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 | Feature | Description |
 |---------|-------------|
-| ✨ **Smooth Animations** | Carefully crafted CSS animations including floating particles, blob effects, and micro-interactions |
-| 🎭 **Skeleton Loading** | Beautiful shimmer loading states for enhanced perceived performance |
-| 📱 **Mobile-First Navigation** | Slide-out mobile menu with full navigation capabilities |
-| 🌊 **Parallax Effects** | Subtle background animations in the hero section for visual depth |
-| 💫 **Feedback Animations** | "Added to Cart" floating animations and cart shake effects for user feedback |
-| 🎯 **Scroll Spy Navigation** | Smooth scroll to sections with animated header transitions |
+| ✨ **Smooth Animations** | Blobs, particles, micro-interactions |
+| 🎭 **Skeleton Loading** | Shimmer placeholders for instant feedback |
+| 📱 **Mobile Navigation** | Slide-out menu with overlay |
+| 💫 **Feedback Effects** | Floating “Added to Cart” animation + shake |
+| 🌊 **Hero Animation** | Gradient text & dynamic elements |
 
 <br>
 
@@ -145,10 +143,10 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 | Page | Description |
 |------|-------------|
-| 📋 **FAQ Section** | Expandable accordion-style FAQ with common customer questions |
-| 📜 **Terms & Conditions** | Comprehensive 10-section legal documentation |
-| ⭐ **Reviews Carousel** | Customer testimonials with auto-sliding carousel and navigation controls |
-| 🏠 **About Section** | Restaurant story with feature cards highlighting quality, chefs, and service |
+| 📋 **FAQ Page** | Accordion-based questions |
+| 📜 **Terms & Conditions** | Full legal-style document |
+| ⭐ **Reviews** | Testimonial slider (if added later) |
+| 🏠 **About Section** | Restaurant story + feature cards |
 
 <br>
 
@@ -162,11 +160,12 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 
 <br>
 
-[![Open Live Demo](https://img.shields.io/badge/🚀_Launch_Application-FF6B35?style=for-the-badge&logoColor=white)]((https://silverspoonco.vercel.app/))
+[![Open Live Demo](https://img.shields.io/badge/🚀_Launch_Application-FF6B35?style=for-the-badge&logoColor=white)](https://silverspoonco.vercel.app/)
 
 <br>
 
 **Test Coupon Codes:**
+
 | Code | Discount | Requirement |
 |------|----------|-------------|
 | `SILVER10` | 10% Off | Any order |
@@ -183,110 +182,68 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 ### **Option 1: Direct Download**
 
 ```bash
-# Clone the repository
 git clone https://github.com/ankushchowrasia/silverspooncorestaurent.git
-
-# Navigate to the project
 cd silverspooncorestaurent
-
-# Open in browser
 open index.html
 Option 2: Live Server
-Copy# Using VS Code Live Server extension
-# Right-click index.html → "Open with Live Server"
+bash
+Copy code
+# Using VS Code Live Server extension
+Right-click → "Open with Live Server"
 
-# Or using Node.js
+# Or with Node.js
 npx serve .
 Option 3: Docker
-Copy# Build and run with Docker
+bash
+Copy code
 docker build -t silverspoon .
 docker run -p 8080:80 silverspoon
-
 📸 Screenshots
-🏠 Hero Section
-Stunning landing page with animated particles, floating blobs, and elegant typography
-
-
-🍽️ Menu Grid
-Interactive menu cards with hover effects, discount badges, and quick-add functionality
-
-
-🛒 Smart Cart
-Sleek sidebar cart with quantity controls, coupon input, and tiered discounts
-
-
-📱 Mobile Experience
-Perfectly optimized mobile interface with touch-friendly interactions
-
+(Add images later using GitHub uploads)
 
 🛠️ Tech Stack
 Frontend Architecture
 Technology	Purpose
-HTML5	Semantic markup & structure
-CSS3	Styling, animations & responsive design
-JavaScript	Interactive functionality & state management
+HTML5	Structure
+CSS3	Styling, animations
+JavaScript	Functionality, state management
 
 Design System
-Element	Choice
-Primary Font	Cormorant Garamond (Headings)
-Body Font	Inter (Body Text)
-Primary Color	#ea580c (Orange)
-Success Color	#16a34a (Green)
-Danger Color	#ef4444 (Red)
+Element	Value
+Heading Font	Cormorant Garamond
+Body Font	Inter
+Primary Color	#ea580c
+Success	#16a34a
+Danger	#ef4444
 
-Key Features Implementation
-Feature	Technology
-State Management	Vanilla JS with localStorage
-Animations	CSS Keyframes & Transitions
-Icons	Inline SVG (No dependencies)
+Key Technical Features
+Feature	Implementation
+State Management	Vanilla JS + LocalStorage
+Animations	CSS keyframes
+Icons	Inline SVG
 Responsive Layout	CSS Grid & Flexbox
-Form Validation	HTML5 Native Validation
 
 📁 Project Structure
+pgsql
+Copy code
 silverspoon.co/
-│
-├── 📄 index.html          # Single-page application
-│
-├── 🎨 Embedded CSS        # Complete styling solution
-│   ├── CSS Variables      # Theme configuration
-│   ├── Animations         # Keyframes & transitions
-│   ├── Components         # Reusable UI components
-│   └── Responsive         # Media queries
-│
-├── ⚡ Embedded JavaScript # Application logic
-│   ├── State Management   # Cart, filters, UI state
-│   ├── Rendering Engine   # Dynamic content generation
-│   ├── Event Handlers     # User interaction logic
-│   └── Local Storage      # Data persistence
-│
-└── 🖼️ External Assets
-    ├── Favicon            # Brand icon
-    ├── Hero Shape         # Background decoration
-    └── Menu Images        # Unsplash CDN images
-
+│── index.html
+│── style.css / app.js (if separated)
+│── assets/
+│── images/
+│── README.md
 🎯 Why Silver Spoon .Co Stands Out
 🏆 Best-in-Class Features
 ⚡ Zero Dependencies
-No frameworks, no libraries, no package managers. Pure, clean code that runs everywhere.
-
-🎨 Premium Design
-Pixel-perfect UI with attention to every detail - from micro-animations to typography spacing.
-
-📱 True Responsiveness
-Not just "mobile-friendly" but genuinely optimized for every screen size and interaction mode.
-
+🎨 Premium UI
+📱 Fully Responsive
 🔒 Production Ready
-Complete with form validation, error handling, loading states, and edge case management.
-
-🚀 SEO Optimized
-Semantic HTML, meta tags, and structured content for maximum search engine visibility.
-
+🚀 SEO Friendly
 ♿ Accessible
-Keyboard navigation, ARIA labels, and color contrast compliance for inclusive design.
-
-
 🧩 Code Quality Highlights
-Copy// Clean, modular state management
+javascript
+Copy code
+// State management
 let state = {
     activeCategory: "All",
     searchQuery: "",
@@ -296,38 +253,30 @@ let state = {
     activeCoupon: null
 };
 
-// Efficient price calculation with discount logic
-const calculateFinalPrice = (mrp, discountPercent) => 
+// Discount logic
+const calculateFinalPrice = (mrp, discountPercent) =>
     Math.round(mrp - (mrp * discountPercent / 100));
-
-// Smart cart totals with tiered discounts
-function calculateCartTotals() {
-    let cda = 0;
-    if (gt >= 2000) cda = Math.round(gt * 0.15);
-    else if (gt >= 1000) cda = Math.round(gt * 0.10);
-    // ... intelligent discount calculation
-}
-
 🤝 Contributing
-Contributions are welcome! Feel free to:
+Fork repository
 
-🍴 Fork the repository
-🔧 Create a feature branch (git checkout -b feature/AmazingFeature)
-💾 Commit changes (git commit -m 'Add AmazingFeature')
-📤 Push to branch (git push origin feature/AmazingFeature)
-🔃 Open a Pull Request
+Create a feature branch
+
+Commit changes
+
+Push
+
+Open PR
 
 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
+MIT License – free to use and modify.
 
 👨‍💻 Author
-
-
 Ankush Chowrasia
-Portfolio GitHub LinkedIn
 
+Portfolio: https://ankushchowrasia.vercel.app
 
-⭐ If you found this project helpful, please give it a star!
+GitHub: https://github.com/ankushchowrasia
 
-Star This Repo
+LinkedIn: https://www.linkedin.com/in/ankushchowrasia27/
+
+<p align="center"><strong>⭐ If you found this project helpful, please consider starring the repository!</strong></p> ```
