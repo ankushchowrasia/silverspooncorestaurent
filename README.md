@@ -182,6 +182,11 @@ Intelligent cart with automatic discounts, coupon code support, persistent stora
 ### **Option 1: Direct Download**
 
 ```bash
+## 🚀 Quick Start
+
+### **Option 1: Direct Download**
+
+```bash
 git clone https://github.com/ankushchowrasia/silverspooncorestaurent.git
 cd silverspooncorestaurent
 open index.html
@@ -224,7 +229,7 @@ Icons	Inline SVG
 Responsive Layout	CSS Grid & Flexbox
 
 📁 Project Structure
-pgsql
+text
 Copy code
 silverspoon.co/
 │── index.html
@@ -234,12 +239,19 @@ silverspoon.co/
 │── README.md
 🎯 Why Silver Spoon .Co Stands Out
 🏆 Best-in-Class Features
+
 ⚡ Zero Dependencies
+
 🎨 Premium UI
+
 📱 Fully Responsive
+
 🔒 Production Ready
+
 🚀 SEO Friendly
+
 ♿ Accessible
+
 🧩 Code Quality Highlights
 javascript
 Copy code
