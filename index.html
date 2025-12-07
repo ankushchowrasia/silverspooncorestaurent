@@ -97,6 +97,33 @@
         .cart-btn { position: relative; background: var(--primary); color: white; padding: 0.5rem; border-radius: 50%; transition: transform 0.2s; }
         .cart-btn:hover { background: var(--primary-hover); }
         .cart-badge { position: absolute; top: -4px; right: -4px; background: var(--danger); color: white; font-size: 10px; font-weight: bold; width: 1.25rem; height: 1.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg-body); }
+        
+        /* Wishlist Button Styles */
+        .wishlist-btn { position: relative; padding: 0.5rem; border-radius: 50%; transition: all 0.3s ease; background: transparent; color: var(--text-muted); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .wishlist-btn:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+        .wishlist-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .wishlist-btn svg { width: 20px; height: 20px; transition: transform 0.3s ease; }
+        .wishlist-btn.active svg { fill: currentColor; }
+        .wishlist-btn.animate-pop { animation: wishlistPop 0.4s ease; }
+        .wishlist-btn.animate-fade { animation: wishlistFade 0.3s ease; }
+        @keyframes wishlistPop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+        @keyframes wishlistFade { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0.5; transform: scale(0.9); } }
+        .wishlist-badge { position: absolute; top: -4px; right: -4px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; width: 1.25rem; height: 1.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg-body); }
+        
+        /* Wishlist Sidebar */
+        .wishlist-sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 400px; background: var(--bg-card); box-shadow: -10px 0 25px rgba(0,0,0,0.1); z-index: 60; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+        .wishlist-sidebar.open { transform: translateX(0); }
+        .wishlist-header { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .wishlist-items { flex: 1; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
+        .wishlist-item { display: flex; gap: 1rem; padding: 1rem; background: var(--bg-body); border-radius: var(--radius-lg); border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
+        .wishlist-item-img { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-md); }
+        .wishlist-item-content { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+        .wishlist-item-name { font-weight: 600; font-size: 1rem; color: var(--text-main); }
+        .wishlist-item-price { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+        .wishlist-item-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .wishlist-empty { text-align: center; padding: 4rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .wishlist-empty svg { width: 80px; height: 80px; color: var(--text-muted); opacity: 0.5; }
+        .wishlist-empty-text { color: var(--text-muted); font-size: 1.1rem; }
 
        
         .hero { 
@@ -821,11 +848,23 @@
                 <a href="#" class="nav-item-btn">Home</a>
                 <a href="#about" class="nav-item-btn">About Us</a>
                 <a href="#menu" class="nav-item-btn">Our Menu</a>
+                <button id="mobile-wishlist-btn" class="nav-item-btn">My Wishlist</button>
                 <button id="mobile-book-btn" class="nav-item-btn">Book a Table</button>
                 <button id="mobile-faq-btn" class="nav-item-btn">FAQ</button>
                 <button id="mobile-terms-btn" class="nav-item-btn">Terms & Conditions</button>
                 <button id="mobile-orders-btn" class="nav-item-btn">Orders & Reserve</button>
                 <button id="mobile-reviews-btn" class="nav-item-btn">Reviews</button>
+            </div>
+        </aside>
+
+        <!-- WISHLIST SIDEBAR -->
+        <aside id="wishlist-sidebar" class="wishlist-sidebar">
+            <div class="wishlist-header">
+                <h2 class="font-heading font-bold" style="font-size: 1.25rem;">My Wishlist</h2>
+                <button id="close-wishlist" class="icon-btn" aria-label="Close Wishlist"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+            </div>
+            <div id="wishlist-items-container" class="wishlist-items">
+                <!-- Wishlist items will be rendered here -->
             </div>
         </aside>
 
@@ -849,7 +888,12 @@
                     <div style="background: var(--primary-light); padding: 1rem; border-radius: var(--radius-md); border-left: 4px solid var(--primary); margin-bottom: 2rem;"><h4 class="font-bold text-sm text-primary" style="display: flex; align-items: center; gap: 0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Did you know?</h4><p id="modal-trivia" class="text-sm" style="font-style: italic; margin-top: 0.25rem;"></p></div>
                     <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
                         <div><span id="modal-mrp" class="price-orig" style="font-size: 1rem;"></span><div id="modal-price" class="price-final" style="font-size: 2rem;"></div></div>
-                        <button id="modal-add-btn" class="btn-primary" style="padding: 0.75rem 2rem;">Add to Order <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                            <button id="modal-wishlist-btn" class="wishlist-btn" aria-label="Add to Wishlist">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+                            </button>
+                            <button id="modal-add-btn" class="btn-primary" style="padding: 0.75rem 2rem;">Add to Order <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -862,6 +906,10 @@
                     <div><h1 class="font-heading font-bold" style="font-size: 1.5rem;"> Silver Spoon <span class="text-primary">. Co</span></h1></div>
                 </a>
                 <div class="flex items-center gap-4">
+                    <button id="wishlist-toggle" class="wishlist-btn" aria-label="Open Wishlist">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+                        <div id="wishlist-count" class="wishlist-badge hidden">0</div>
+                    </button>
                     <button id="cart-toggle" class="cart-btn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                         <div id="cart-count" class="cart-badge hidden">0</div>
@@ -1066,7 +1114,7 @@
                         <h4 style="color: white; font-weight: 700; margin-bottom: 1rem; font-family: 'Times New Roman', serif;">Quick Links</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem; font-family: 'Times New Roman', serif; padding: 0;">
-                                <li><a href="#" style="color: inherit; text-decoration: none;">Home</a></li><li><a href="#about" style="color: inherit; text-decoration: none;">About Us</a></li><li><a href="#menu" style="color: inherit; text-decoration: none;">Menu</a></li><li><a href="#" id="footer-book-btn" style="color: inherit; text-decoration: none;">Book a Table</a></li>
+                                <li><a href="#" style="color: inherit; text-decoration: none;">Home</a></li><li><a href="#about" style="color: inherit; text-decoration: none;">About Us</a></li><li><a href="#menu" style="color: inherit; text-decoration: none;">Menu</a></li><li><a href="#" id="footer-wishlist-btn" onclick="openWishlist(); return false;" style="color: inherit; text-decoration: none;">My Wishlist</a></li><li><a href="#" id="footer-book-btn" style="color: inherit; text-decoration: none;">Book a Table</a></li>
                             </ul>
                             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem; font-family: 'Times New Roman', serif; padding: 0;">
                                 <li><a href="#" id="footer-faq-btn" style="color: inherit; text-decoration: none;">FAQ</a></li><li><a href="#" id="footer-terms-btn" style="color: inherit; text-decoration: none;">Terms & Conditions</a></li><li><a href="#" id="footer-orders-btn" style="color: inherit; text-decoration: none;">Orders & Reserve</a></li><li><a href="#" onclick="document.getElementById('reviews-section').scrollIntoView({behavior:'smooth'}); return false;" style="color: inherit; text-decoration: none;">Reviews</a></li>
@@ -1146,13 +1194,14 @@
         ];
 
         let cart=JSON.parse(localStorage.getItem('silverSpoonCart'))||[];
+        let wishlist=JSON.parse(localStorage.getItem('silverSpoonWishlist'))||[];
         let state={activeCategory:"All",searchQuery:"",dietFilter:"All",priceRange:2500,sortOption:"popularity",activeCoupon:null,compareList:[]};
         let currentReview = 0;
         let autoSlideInterval;
-        const els={html:document.documentElement,menuGrid:document.getElementById('menu-grid'),specialsGrid:document.getElementById('specials-grid'),cartSidebar:document.getElementById('cart-sidebar'),cartOverlay:document.getElementById('cart-overlay'),cartItems:document.getElementById('cart-items-container'),cartCount:document.getElementById('cart-count'),themeToggle:document.getElementById('theme-toggle'),modalOverlay:document.getElementById('modal-overlay'),priceVal:document.getElementById('price-val'),noResults:document.getElementById('no-results'),couponInput:document.getElementById('coupon-input'),couponMsg:document.getElementById('coupon-msg'),compareBar:document.getElementById('compare-bar'),compareCount:document.getElementById('compare-count-text'),compareBtn:document.getElementById('btn-compare-trigger'),compareClear:document.getElementById('btn-clear-compare'),compareModal:document.getElementById('compare-modal'),compareTable:document.getElementById('compare-table-body')};
+        const els={html:document.documentElement,menuGrid:document.getElementById('menu-grid'),specialsGrid:document.getElementById('specials-grid'),cartSidebar:document.getElementById('cart-sidebar'),cartOverlay:document.getElementById('cart-overlay'),cartItems:document.getElementById('cart-items-container'),cartCount:document.getElementById('cart-count'),themeToggle:document.getElementById('theme-toggle'),modalOverlay:document.getElementById('modal-overlay'),priceVal:document.getElementById('price-val'),noResults:document.getElementById('no-results'),couponInput:document.getElementById('coupon-input'),couponMsg:document.getElementById('coupon-msg'),compareBar:document.getElementById('compare-bar'),compareCount:document.getElementById('compare-count-text'),compareBtn:document.getElementById('btn-compare-trigger'),compareClear:document.getElementById('btn-clear-compare'),compareModal:document.getElementById('compare-modal'),compareTable:document.getElementById('compare-table-body'),wishlistSidebar:document.getElementById('wishlist-sidebar'),wishlistItems:document.getElementById('wishlist-items-container'),wishlistCount:document.getElementById('wishlist-count'),wishlistToggle:document.getElementById('wishlist-toggle')};
         const icons={plus:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`,minus:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>`,trash:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`,info:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,bag:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,star:`<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,check:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`};
 
-        function init(){renderCategories();renderSkeletons();renderCart();renderReviews();startAutoSlide();setupEventListeners();setTimeout(()=>{renderMenu();renderSpecials();const preloader=document.getElementById('preloader');const siteContent=document.getElementById('site-content');const loadingFill=document.getElementById('loading-fill');const loadingText=document.getElementById('loading-text');let progress=0;const interval=setInterval(()=>{progress+=2;if(progress>100)progress=100;loadingFill.style.width=`${progress}%`;loadingText.innerText=`${progress}%`;if(progress===100){clearInterval(interval);setTimeout(()=>{preloader.classList.add('preloader-hidden');siteContent.style.visibility='visible';},200);}},20);setTimeout(()=>{const pb=document.getElementById('promo-banner');pb.classList.add('visible');setTimeout(()=>{pb.classList.remove('visible');},5000);},3000);},500);}
+        function init(){loadWishlist();renderCategories();renderSkeletons();renderCart();renderReviews();startAutoSlide();setupEventListeners();setTimeout(()=>{renderMenu();renderSpecials();const preloader=document.getElementById('preloader');const siteContent=document.getElementById('site-content');const loadingFill=document.getElementById('loading-fill');const loadingText=document.getElementById('loading-text');let progress=0;const interval=setInterval(()=>{progress+=2;if(progress>100)progress=100;loadingFill.style.width=`${progress}%`;loadingText.innerText=`${progress}%`;if(progress===100){clearInterval(interval);setTimeout(()=>{preloader.classList.add('preloader-hidden');siteContent.style.visibility='visible';},200);}},20);setTimeout(()=>{const pb=document.getElementById('promo-banner');pb.classList.add('visible');setTimeout(()=>{pb.classList.remove('visible');},5000);},3000);},500);}
 
         function startAutoSlide() {
             if(autoSlideInterval) clearInterval(autoSlideInterval);
@@ -1175,6 +1224,7 @@
             const ci=cart.find(i=>i.id===item.id);
             const q=ci?ci.qty:0;
             const isSelected = state.compareList.includes(item.id);
+            const isInWishlist = wishlist.some(w=>w.id===item.id);
 
             // Replaced the static star icon with a dedicated span class for animation
             const starIcon = `<svg class="star-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
@@ -1210,6 +1260,9 @@
                     <div class="card-footer">
                         <div>${item.discountPercent>0?`<div class="price-orig">MRP ₹${item.price}</div>`:''}<div class="price-final">₹${dp}</div></div>
                         <div class="flex gap-2 items-center">
+                            <button id="wishlist-btn-${item.id}" class="wishlist-btn ${isInWishlist?'active':''}" onclick="event.stopPropagation(); toggleWishlist(${item.id})" aria-label="${isInWishlist?'Remove':'Add'} ${item.name} ${isInWishlist?'from':'to'} Wishlist">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isInWishlist?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+                            </button>
                             <button class="btn-details" onclick="event.stopPropagation(); openModal(${item.id})" aria-label="View Details for ${item.name}">View Details</button>
                             <div id="card-action-${item.id}" onclick="event.stopPropagation();" onkeydown="event.stopPropagation();">
                                 <button id="btn-add-${item.id}" class="btn-add ${q>0?'hidden':''}" onclick="addToCart(${item.id}, event)" aria-label="Add ${item.name} to Cart">Add ${icons.bag}</button>
@@ -1343,11 +1396,181 @@
             b.classList.add('cart-shake');
         }
 
-        window.openModal=(id)=>{const item=MENU_ITEMS.find(i=>i.id===id);if(!item)return;const p=calculateFinalPrice(item.price,item.discountPercent);document.getElementById('modal-img').src=item.image;const vb=document.getElementById('modal-veg-badge');vb.className=`veg-badge ${item.isVeg?'bg-veg':'bg-nonveg'}`;vb.innerHTML=`<div class="dot ${item.isVeg?'dot-veg':'dot-nonveg'}"></div> ${item.isVeg?'Veg':'Non-Veg'}`;document.getElementById('modal-rating').innerText=item.rating;document.getElementById('modal-cat').innerText=item.category;document.getElementById('modal-title').innerText=item.name;document.getElementById('modal-desc').innerText=item.description;document.getElementById('modal-ingredients').innerHTML=item.ingredients.map(i=>`<span style="background:var(--bg-body); padding:2px 8px; border-radius:4px; border:1px solid var(--border); font-size:0.75rem;">${i}</span>`).join('');document.getElementById('modal-trivia').innerText=item.trivia;document.getElementById('modal-mrp').innerText=item.discountPercent>4?`MRP ₹${item.price}`:'';document.getElementById('modal-price').innerText=`₹${p}`;const btn=document.getElementById('modal-add-btn');btn.onclick=(e)=>{window.addToCart(id,e);closeModal();};els.modalOverlay.classList.add('open');document.body.style.overflow='hidden';};
+        window.openModal=(id)=>{const item=MENU_ITEMS.find(i=>i.id===id);if(!item)return;const p=calculateFinalPrice(item.price,item.discountPercent);document.getElementById('modal-img').src=item.image;const vb=document.getElementById('modal-veg-badge');vb.className=`veg-badge ${item.isVeg?'bg-veg':'bg-nonveg'}`;vb.innerHTML=`<div class="dot ${item.isVeg?'dot-veg':'dot-nonveg'}"></div> ${item.isVeg?'Veg':'Non-Veg'}`;document.getElementById('modal-rating').innerText=item.rating;document.getElementById('modal-cat').innerText=item.category;document.getElementById('modal-title').innerText=item.name;document.getElementById('modal-desc').innerText=item.description;document.getElementById('modal-ingredients').innerHTML=item.ingredients.map(i=>`<span style="background:var(--bg-body); padding:2px 8px; border-radius:4px; border:1px solid var(--border); font-size:0.75rem;">${i}</span>`).join('');document.getElementById('modal-trivia').innerText=item.trivia;document.getElementById('modal-mrp').innerText=item.discountPercent>4?`MRP ₹${item.price}`:'';document.getElementById('modal-price').innerText=`₹${p}`;const btn=document.getElementById('modal-add-btn');btn.onclick=(e)=>{window.addToCart(id,e);closeModal();};const isInWishlist=wishlist.some(w=>w.id===id);const wishlistBtn=document.getElementById('modal-wishlist-btn');if(wishlistBtn){wishlistBtn.classList.toggle('active',isInWishlist);const wishlistSvg=wishlistBtn.querySelector('svg');if(wishlistSvg)wishlistSvg.setAttribute('fill',isInWishlist?'currentColor':'none');wishlistBtn.onclick=(e)=>{e.stopPropagation();toggleWishlist(id);};wishlistBtn.setAttribute('aria-label',isInWishlist?`Remove ${item.name} from Wishlist`:`Add ${item.name} to Wishlist`);}els.modalOverlay.classList.add('open');document.body.style.overflow='hidden';};
 
         function closeModal(){els.modalOverlay.classList.remove('open');document.body.style.overflow='';}
         function openCart(){els.cartOverlay.classList.add('open');els.cartSidebar.classList.add('open');document.body.style.overflow='hidden';}
         function closeCart(){els.cartOverlay.classList.remove('open');els.cartSidebar.classList.remove('open');document.body.style.overflow='';}
+
+        // ========== WISHLIST FUNCTIONS ==========
+        function saveWishlist(){
+            localStorage.setItem('silverSpoonWishlist', JSON.stringify(wishlist));
+            updateWishlistBadge();
+        }
+        
+        function loadWishlist(){
+            const stored = localStorage.getItem('silverSpoonWishlist');
+            wishlist = stored ? JSON.parse(stored) : [];
+            updateWishlistBadge();
+        }
+        
+        function updateWishlistBadge(){
+            const count = wishlist.length;
+            if(els.wishlistCount){
+                els.wishlistCount.innerText = count;
+                els.wishlistCount.classList.toggle('hidden', count === 0);
+            }
+        }
+        
+        function addToWishlist(dish){
+            if(!wishlist.some(w => w.id === dish.id)){
+                wishlist.push({
+                    id: dish.id,
+                    name: dish.name,
+                    price: dish.price,
+                    image: dish.image,
+                    isVeg: dish.isVeg
+                });
+                saveWishlist();
+                updateWishlistButtons(dish.id, true);
+                // Update wishlist page if it's open
+                if(els.wishlistSidebar && els.wishlistSidebar.classList.contains('open')){
+                    renderWishlist();
+                }
+                return true;
+            }
+            return false;
+        }
+        
+        function removeFromWishlist(id){
+            wishlist = wishlist.filter(w => w.id !== id);
+            saveWishlist();
+            updateWishlistButtons(id, false);
+            renderWishlist();
+        }
+        
+        function toggleWishlist(id){
+            const item = MENU_ITEMS.find(i => i.id === id);
+            if(!item) return;
+            
+            const isInWishlist = wishlist.some(w => w.id === id);
+            const btn = document.getElementById(`wishlist-btn-${id}`);
+            const modalBtn = document.getElementById('modal-wishlist-btn');
+            
+            if(isInWishlist){
+                removeFromWishlist(id);
+                if(btn){
+                    btn.classList.add('animate-fade');
+                    setTimeout(() => btn.classList.remove('animate-fade'), 300);
+                }
+                if(modalBtn){
+                    modalBtn.classList.add('animate-fade');
+                    setTimeout(() => modalBtn.classList.remove('animate-fade'), 300);
+                }
+            } else {
+                addToWishlist({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    image: item.image,
+                    isVeg: item.isVeg
+                });
+                if(btn){
+                    btn.classList.add('animate-pop');
+                    setTimeout(() => btn.classList.remove('animate-pop'), 400);
+                }
+                if(modalBtn){
+                    modalBtn.classList.add('animate-pop');
+                    setTimeout(() => modalBtn.classList.remove('animate-pop'), 400);
+                }
+            }
+        }
+        
+        function updateWishlistButtons(id, isActive){
+            const btn = document.getElementById(`wishlist-btn-${id}`);
+            const modalBtn = document.getElementById('modal-wishlist-btn');
+            const svg = btn ? btn.querySelector('svg') : null;
+            const modalSvg = modalBtn ? modalBtn.querySelector('svg') : null;
+            
+            if(btn){
+                if(isActive){
+                    btn.classList.add('active');
+                    if(svg) svg.setAttribute('fill', 'currentColor');
+                } else {
+                    btn.classList.remove('active');
+                    if(svg) svg.setAttribute('fill', 'none');
+                }
+            }
+            
+            if(modalBtn && document.getElementById('modal-title')?.innerText === MENU_ITEMS.find(i => i.id === id)?.name){
+                if(isActive){
+                    modalBtn.classList.add('active');
+                    if(modalSvg) modalSvg.setAttribute('fill', 'currentColor');
+                } else {
+                    modalBtn.classList.remove('active');
+                    if(modalSvg) modalSvg.setAttribute('fill', 'none');
+                }
+            }
+        }
+        
+        function renderWishlist(){
+            if(!els.wishlistItems) return;
+            
+            if(wishlist.length === 0){
+                els.wishlistItems.innerHTML = `
+                    <div class="wishlist-empty">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                        </svg>
+                        <p class="wishlist-empty-text">Your wishlist is empty.<br>Add your favourite dishes!</p>
+                    </div>
+                `;
+            } else {
+                els.wishlistItems.innerHTML = wishlist.map(w => {
+                    const item = MENU_ITEMS.find(i => i.id === w.id);
+                    if(!item) return '';
+                    
+                    const dp = calculateFinalPrice(item.price, item.discountPercent);
+                    const vbc = item.isVeg ? 'bg-veg' : 'bg-nonveg';
+                    const vdc = item.isVeg ? 'dot-veg' : 'dot-nonveg';
+                    const vt = item.isVeg ? 'Veg' : 'Non-Veg';
+                    
+                    return `
+                        <div class="wishlist-item">
+                            <img src="${item.image}" alt="${item.name}" class="wishlist-item-img">
+                            <div class="wishlist-item-content">
+                                <div class="flex items-center gap-2" style="margin-bottom: 0.25rem;">
+                                    <span class="veg-badge ${vbc}">
+                                        <div class="dot ${vdc}"></div> ${vt}
+                                    </span>
+                                </div>
+                                <h4 class="wishlist-item-name">${item.name}</h4>
+                                <div class="wishlist-item-price">₹${dp}</div>
+                                <div class="wishlist-item-actions">
+                                    <button class="btn-details" onclick="openModal(${item.id}); closeWishlist();" style="flex: 1;">View Details</button>
+                                    <button class="icon-btn" style="color: var(--danger);" onclick="removeFromWishlist(${item.id})" aria-label="Remove ${item.name} from wishlist">
+                                        ${icons.trash}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+        
+        function openWishlist(){
+            if(els.cartOverlay) els.cartOverlay.classList.add('open');
+            if(els.wishlistSidebar) els.wishlistSidebar.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            renderWishlist();
+        }
+        
+        function closeWishlist(){
+            if(els.cartOverlay) els.cartOverlay.classList.remove('open');
+            if(els.wishlistSidebar) els.wishlistSidebar.classList.remove('open');
+            document.body.style.overflow = '';
+        }
 
         function applyCoupon(){const c=els.couponInput.value.toUpperCase();const{grossTotal}=calculateCartTotals();let d=0;if(grossTotal>=2000)d=Math.round(grossTotal*0.15);else if(grossTotal>=1000)d=Math.round(grossTotal*0.10);let m='';let s=false;if(c==='SILVER10'){state.activeCoupon='SILVER10';m='Coupon SILVER10 applied! (10% Extra Off)';s=true;}else if(c==='FREEDRINK'){const h=cart.some(x=>{const p=MENU_ITEMS.find(y=>y.id===x.id);return p&&p.category==='Main Course';});if(grossTotal>=100&&h){state.activeCoupon='FREEDRINK';m='Coupon FREEDRINK applied! (₹100 Off)';s=true;}else{m='Requirements: Cart > ₹100 & 1 Main Course.';state.activeCoupon=null;}}else{m='Invalid Coupon Code';state.activeCoupon=null;}els.couponMsg.innerText=m;els.couponMsg.style.color=s?'var(--success)':'var(--danger)';renderCart();}
 
@@ -1461,7 +1684,7 @@
             startAutoSlide(); // Restart timer
         }
 
-        function setupMobileMenu(){const b=document.getElementById('menu-toggle');const s=document.getElementById('mobile-menu-sidebar');const o=document.getElementById('cart-overlay');const c=document.getElementById('close-mobile-menu');const mo=document.getElementById('mobile-orders-btn');const mr=document.getElementById('mobile-reviews-btn');window.openMobileMenu=()=>{o.classList.add('open');s.classList.add('open');document.body.style.overflow='hidden';};window.closeMobileMenu=()=>{o.classList.remove('open');s.classList.remove('open');document.body.style.overflow='';};if(b)b.addEventListener('click',openMobileMenu);if(c)c.addEventListener('click',closeMobileMenu);o.addEventListener('click',closeMobileMenu);if(mr)mr.addEventListener('click',()=>{closeMobileMenu();document.getElementById('reviews-section').scrollIntoView({behavior:'smooth'});});document.querySelectorAll('.nav-item-btn').forEach(l=>{if(l.tagName==='A'){l.addEventListener('click',closeMobileMenu);}});}
+        function setupMobileMenu(){const b=document.getElementById('menu-toggle');const s=document.getElementById('mobile-menu-sidebar');const o=document.getElementById('cart-overlay');const c=document.getElementById('close-mobile-menu');const mo=document.getElementById('mobile-orders-btn');const mr=document.getElementById('mobile-reviews-btn');const mw=document.getElementById('mobile-wishlist-btn');window.openMobileMenu=()=>{o.classList.add('open');s.classList.add('open');document.body.style.overflow='hidden';};window.closeMobileMenu=()=>{o.classList.remove('open');s.classList.remove('open');document.body.style.overflow='';};if(b)b.addEventListener('click',openMobileMenu);if(c)c.addEventListener('click',closeMobileMenu);o.addEventListener('click',closeMobileMenu);if(mr)mr.addEventListener('click',()=>{closeMobileMenu();document.getElementById('reviews-section').scrollIntoView({behavior:'smooth'});});if(mw)mw.addEventListener('click',()=>{closeMobileMenu();openWishlist();});document.querySelectorAll('.nav-item-btn').forEach(l=>{if(l.tagName==='A'){l.addEventListener('click',closeMobileMenu);}});}
 
         // --- COMPARE FUNCTIONS ---
         window.toggleCompare = (id) => {
@@ -1629,6 +1852,9 @@
             document.getElementById('cart-toggle').addEventListener('click',openCart);
             document.getElementById('close-cart').addEventListener('click',closeCart);
             els.cartOverlay.addEventListener('click',closeCart);
+            if(els.wishlistToggle)els.wishlistToggle.addEventListener('click',openWishlist);
+            const closeWishlistBtn=document.getElementById('close-wishlist');if(closeWishlistBtn)closeWishlistBtn.addEventListener('click',closeWishlist);
+            els.cartOverlay.addEventListener('click',(e)=>{if(!els.wishlistSidebar.classList.contains('open'))return;if(e.target===els.cartOverlay)closeWishlist();});
             document.getElementById('close-modal').addEventListener('click',closeModal);
             els.modalOverlay.addEventListener('click',(e)=>{if(e.target===els.modalOverlay)closeModal();});
             document.getElementById('apply-coupon').addEventListener('click',applyCoupon);
